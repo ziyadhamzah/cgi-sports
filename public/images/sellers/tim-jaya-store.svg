@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 600" role="img">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2114"/><stop offset="1" stop-color="#354021"/></linearGradient></defs>
+<rect width="1400" height="600" fill="url(#g)"/>
+<g fill="none" opacity="0.12" stroke="#c6f24a"><circle cx="1310" cy="90" r="150" stroke-width="2"/><circle cx="70" cy="540" r="110" stroke-width="2"/></g>
+<g transform="translate(700 270) scale(1.25)" fill="none" stroke="#c6f24a" stroke-linecap="round" stroke-linejoin="round"><circle cx="0" cy="0" r="92" stroke-width="11"/><path d="M0 -38 L36 -12 L23 32 H-23 L-36 -12 Z" stroke-width="8"/><path d="M0 -92 V-38 M86 -28 L36 -12 M70 68 L23 32 M-70 68 L-23 32 M-86 -28 L-36 -12" stroke-width="7"/></g>
+<text x="700" y="558" text-anchor="middle" fill="#e9f2e4" font-family="Arial, sans-serif" font-size="26" font-weight="600">Tim Jaya Store</text>
+</svg>

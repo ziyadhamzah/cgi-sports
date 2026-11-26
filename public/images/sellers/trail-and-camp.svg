@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 600" role="img">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#111f1a"/><stop offset="1" stop-color="#1f3a2c"/></linearGradient></defs>
+<rect width="1400" height="600" fill="url(#g)"/>
+<g fill="none" opacity="0.12" stroke="#c6f24a"><circle cx="1310" cy="90" r="150" stroke-width="2"/><circle cx="70" cy="540" r="110" stroke-width="2"/></g>
+<g transform="translate(700 270) scale(1.25)" fill="none" stroke="#c6f24a" stroke-linecap="round" stroke-linejoin="round"><path d="M-175 95 L0 -120 L175 95 Z" stroke-width="12"/><path d="M0 -120 L-45 95 M0 -120 L45 95 M-175 95 H175" stroke-width="8"/><path d="M-45 95 L0 20 L45 95" stroke-width="7" opacity="0.65"/></g>
+<text x="700" y="558" text-anchor="middle" fill="#e9f2e4" font-family="Arial, sans-serif" font-size="26" font-weight="600">Trail &amp; Camp</text>
+</svg>

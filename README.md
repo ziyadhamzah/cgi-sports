@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CGI Sports
 
-## Getting Started
+Marketplace alat olahraga berbasis Next.js 16 (App Router, React 19, TypeScript, Tailwind CSS 4). Seluruh data bersifat demo dan disimpan di browser pengguna.
 
-First, run the development server:
+## Menjalankan proyek
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Skrip lain:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npx tsc --noEmit
+npm test
+npm run build
+npm start
+```
 
-## Learn More
+Salin `.env.example` menjadi `.env.local` untuk konfigurasi lokal. `NEXT_PUBLIC_SITE_URL` dipakai untuk metadata canonical dan Open Graph.
 
-To learn more about Next.js, take a look at the following resources:
+## Konfigurasi admin
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Panel analitik berada di `/admin/analytics` dan dilindungi oleh sesi berbasis cookie `httpOnly` yang ditandatangani di server.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+CGI_SPORTS_ADMIN_PASSWORD=PasswordAnda
+CGI_SPORTS_ADMIN_SECRET=RahasiaHMACAnda
+```
 
-## Deploy on Vercel
+Keduanya opsional untuk `npm run dev`. Jika tidak diatur, kata sandi default `cgi-admin` dipakai. Di `production`, endpoint admin menolak semua permintaan dengan `503` sampai kedua variabel diisi dan `CGI_SPORTS_ADMIN_SECRET` berbeda dari kata sandi. **Ganti keduanya sebelum deploy**; jangan gunakan nilai demo.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Alur demo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Akun:** halaman `/login` dan `/register` menerima nama dan email bebas. Semua akun demo berperan `user`; panel admin memakai kata sandi terpisah.
+- **Belanja:** `/products` → detail produk → keranjang → `/checkout` → buat pesanan → konfirmasi pembayaran di halaman detail pesanan.
+- **Pembayaran:** seluruh metode adalah simulasi. QRIS dan nomor VA/E-wallet bukan instrumen pembayaran nyata. Nomor resi hanya dibuat setelah tombol konfirmasi demo ditekan.
+- **Pengiriman:** `/lacak` menerima nomor pesanan atau resi. Pesanan demo: `CGI-20261120-4821`.
+- **Penjual:** `/seller/dashboard` dapat membuka toko, menambah produk, dan mengunggah foto (tersimpan di `localStorage`).
+- **Layanan:** `/services` berisi empat layanan dengan form pengajuan; hasilnya tampil di `/account`.
+- **Konsultan:** `/api/chat` adalah aturan berbasis kata kunci, bukan model bahasa. Pembatas 12 pesan/menit per kombinasi IP dan user-agent berlaku dalam memori proses; header proxy dapat dipalsukan, jadi ini bukan pengganti rate limiter edge/WAF.
+
+Voucher yang tersedia:
+
+| Kode | Syarat |
+| --- | --- |
+| `CGI10` | Diskon 10% maksimal Rp50.000, belanja minimal Rp150.000 |
+| `LARI15` | Diskon 15% untuk kategori Lari, minimal Rp250.000 pada produk kategori Lari |
+| `HEMAT20K` | Potongan Rp20.000, belanja minimal Rp100.000 |
+
+## Struktur
+
+- `src/app` — halaman App Router dan route handler API.
+- `src/components` — komponen landing, katalog, checkout, pesanan, penjual, dan layout.
+- `src/lib/mock-data.ts` — katalog, penjual, layanan, voucher, dan pesanan demo.
+- `src/lib/store/StoreProvider.tsx` — state global dengan `useSyncExternalStore`, persist ke `localStorage`.
+- `src/app/api/admin/session/route.ts` — login/logout admin dan verifikasi cookie sesi.
+- `src/app/api/chat/route.ts` — endpoint konsultan berbasis aturan.
+
+State disimpan dengan kunci berawalan `cgi_sports_` di `localStorage` (voucher menggunakan `sessionStorage`). Data demo seperti pesanan dan notifikasi akan ditambahkan kembali saat halaman dimuat setelah dihapus. Gambar hasil unggahan disimpan sebagai data URL, jadi ukuran besar dapat memenuhi kuota penyimpanan browser.
+
+## Batasan
+
+Proyek ini berfungsi sebagai prototipe frontend: tidak ada database, pembayaran sungguhan, autentikasi pengguna yang aman, atau pengiriman nyata. Foto katalog, layanan, penjual, dan hero adalah berkas JPEG lokal di `public/images` (sumber: Pexels), sehingga tetap tampil tanpa koneksi internet saat runtime. Satu JPEG generik tetap dipakai sebagai placeholder saat penjual belum mengunggah foto produk. Analitik hanya mengukur aktivitas di browser yang sama. Pesanan, notifikasi, voucher, dan sesi admin adalah data contoh; tidak ada database atau pembayaran sungguhan.

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 600" role="img">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#13211c"/><stop offset="1" stop-color="#1d3a30"/></linearGradient></defs>
+<rect width="1400" height="600" fill="url(#g)"/>
+<g fill="none" opacity="0.12" stroke="#c6f24a"><circle cx="1310" cy="90" r="150" stroke-width="2"/><circle cx="70" cy="540" r="110" stroke-width="2"/></g>
+<g transform="translate(700 270) scale(1.25)" fill="none" stroke="#c6f24a" stroke-linecap="round" stroke-linejoin="round"><path d="M-165 55 V8 C-165 -30 -130 -50 -85 -42 L-20 -22 C10 -12 45 8 95 18 L150 30 C170 36 175 65 155 70 H-140 C-155 70 -165 65 -165 55 Z" stroke-width="11"/><path d="M-160 48 H160" stroke-width="8"/><path d="M-70 -24 L-40 6 M-35 -14 L-5 16 M0 -4 L30 26" stroke-width="6" opacity="0.7"/></g>
+<text x="700" y="558" text-anchor="middle" fill="#e9f2e4" font-family="Arial, sans-serif" font-size="26" font-weight="600">SportLine Indonesia</text>
+</svg>

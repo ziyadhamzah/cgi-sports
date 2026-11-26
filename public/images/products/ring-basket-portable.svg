@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#241a12"/><stop offset="1" stop-color="#432b19"/></linearGradient></defs>
+<rect width="800" height="600" fill="url(#g)"/>
+<g fill="none" opacity="0.12" stroke="#c6f24a"><circle cx="710" cy="90" r="150" stroke-width="2"/><circle cx="70" cy="540" r="110" stroke-width="2"/></g>
+<g transform="translate(400 270) scale(1.0)" fill="none" stroke="#c6f24a" stroke-linecap="round" stroke-linejoin="round"><rect x="-120" y="-145" width="240" height="140" rx="10" stroke-width="12"/><rect x="-55" y="-105" width="110" height="70" rx="4" stroke-width="7"/><ellipse cx="0" cy="15" rx="72" ry="18" stroke-width="11"/><path d="M-65 20 L-45 115 M-25 24 L-15 115 M25 24 L15 115 M65 20 L45 115 M-45 115 H45" stroke-width="5" opacity="0.7"/></g>
+<text x="400" y="558" text-anchor="middle" fill="#e9f2e4" font-family="Arial, sans-serif" font-size="26" font-weight="600">Ring Basket Portable</text>
+</svg>
