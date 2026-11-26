@@ -87,22 +87,44 @@ export default function ProductFilters({ categories, cities, resultCount, seller
       </div>
 
       <form
-        className="mt-5 flex gap-2"
+        className="mt-5"
         onSubmit={(event) => {
           event.preventDefault();
           updateParam("q", search.trim());
         }}
       >
-        <input
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder="Cari produk atau kategori"
-          aria-label="Cari produk"
-          className={inputClass}
-        />
-        <Button type="submit" size="sm" icon="search">
-          Cari
-        </Button>
+        <label htmlFor="product-search" className="sr-only">Cari produk atau kategori</label>
+        <div className="flex items-center rounded-xl border border-[var(--line)] bg-[var(--background)] pl-3 pr-1 transition focus-within:border-[var(--accent)]/60 focus-within:bg-[var(--surface)]">
+          <Icon name="search" size={16} className="shrink-0 text-[var(--muted)]" />
+          <input
+            id="product-search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Cari produk, kategori, atau toko"
+            className="min-w-0 flex-1 bg-transparent py-3 pl-2 pr-2 text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
+          />
+          {search && (
+            <button
+              type="button"
+              onClick={() => {
+                setSearch("");
+                updateParam("q", "");
+              }}
+              aria-label="Hapus pencarian"
+              className="mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--muted)] transition hover:bg-white/5 hover:text-[var(--foreground)]"
+            >
+              <Icon name="close" size={14} />
+            </button>
+          )}
+          <button
+            type="submit"
+            aria-label="Cari produk"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--accent-ink)] transition hover:brightness-110"
+          >
+            <Icon name="arrow-right" size={15} />
+          </button>
+        </div>
+        <p className="mt-2 text-xs leading-5 text-[var(--muted)]">Cari nama produk, kategori, tag, atau nama toko.</p>
       </form>
 
       <div className="mt-6">

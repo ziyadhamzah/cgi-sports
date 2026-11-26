@@ -25,6 +25,7 @@ export default function ProductCard({ product, priority = false }: { product: Pr
           priority={priority}
           className="object-cover transition duration-500 group-hover:scale-105"
         />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
         <div className="absolute left-3 top-3 flex flex-wrap gap-2">
           <Badge tone="neutral">{getCategoryName(product.categorySlug)}</Badge>
           {(product.promoLabel || formatDiscountLabel(product.price, product.originalPrice)) && (
@@ -43,16 +44,16 @@ export default function ProductCard({ product, priority = false }: { product: Pr
           <Icon name="location" size={12} />
           <span>{product.city}</span>
         </p>
-        <div className="mt-3">
+        <div className="mt-3 rounded-xl border border-[var(--line)] bg-[var(--surface-soft)] px-3 py-2">
           <Rating value={product.rating} count={product.reviewCount} />
         </div>
-        <div className="mt-4 flex flex-wrap items-end gap-2">
+        <div className="mt-4 flex flex-wrap items-end gap-2 rounded-2xl border border-[var(--accent)]/10 bg-[var(--accent)]/5 px-3 py-2.5">
           <span className="text-lg font-semibold text-[var(--accent)]">{formatRupiah(product.price)}</span>
           {product.originalPrice && (
             <span className="pb-0.5 text-xs text-[var(--muted)] line-through">{formatRupiah(product.originalPrice)}</span>
           )}
         </div>
-        <p className="mt-2 flex flex-wrap items-center gap-2 text-[11px] text-[var(--muted)]">
+        <p className="mt-2 flex flex-wrap items-center gap-2 text-xs text-[var(--muted)]">
           <span>Terjual {product.sold}</span>
           <span aria-hidden="true">·</span>
           <span className={product.stock <= 5 ? "text-amber-400" : undefined}>

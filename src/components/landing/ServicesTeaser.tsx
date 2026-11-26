@@ -23,26 +23,27 @@ export default function ServicesTeaser({ services }: { services: Service[] }) {
             <Link
               key={service.id}
               href={`/services/${service.slug}`}
-              className="surface-card group overflow-hidden rounded-2xl transition hover:border-[var(--accent)]/40"
+              className="surface-card group overflow-hidden rounded-3xl transition hover:-translate-y-1 hover:border-[var(--accent)]/40"
             >
-              <div className="relative h-32 overflow-hidden bg-[var(--surface-soft)]">
+              <div className="relative h-36 overflow-hidden bg-[var(--surface-soft)]">
                 <SafeImage src={service.image} alt={service.name} sizes="(max-width: 640px) 100vw, 25vw" className="object-cover transition duration-500 group-hover:scale-105" />
-              </div>
-              <div className="p-6">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--accent)]/10 text-[var(--accent)]">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <span className="absolute bottom-3 left-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--accent)]/30 bg-[var(--surface)] text-[var(--accent)] shadow-lg">
                   <Icon name={(service.icon as IconName) || "sparkles"} size={20} />
                 </span>
-                <h3 className="mt-5 text-base font-semibold text-[var(--foreground)]">
+              </div>
+              <div className="p-6">
+                <h3 className="text-base font-semibold text-[var(--foreground)]">
                   {service.name}
                 </h3>
                 <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{service.description}</p>
-                <div className="mt-5 flex items-center justify-between gap-2">
+                <div className="mt-5 flex items-center justify-between gap-2 border-t border-[var(--line)] pt-4">
                   <span className="text-sm font-semibold text-[var(--accent)]">
                     {formatRupiah(service.price)}
                   </span>
-                  <span className="text-[11px] text-[var(--muted)]">{service.duration}</span>
+                  <span className="text-xs text-[var(--muted)]">{service.duration}</span>
                 </div>
-                <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-[var(--muted)] transition group-hover:text-[var(--foreground)]">
+                <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-[var(--accent)] transition group-hover:translate-x-0.5">
                   Lihat detail
                   <Icon name="arrow-right" size={14} />
                 </span>

@@ -26,11 +26,11 @@ export default function Hero() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => {
+    const timer = window.setTimeout(() => {
       setActiveSlide((current) => (current + 1) % heroSlides.length);
-    }, 7000);
-    return () => window.clearInterval(timer);
-  }, []);
+    }, 4500);
+    return () => window.clearTimeout(timer);
+  }, [activeSlide]);
 
   function openChat() {
     window.dispatchEvent(new Event("cgi:open-chat"));
@@ -66,11 +66,26 @@ export default function Hero() {
               CGI Sports menghadirkan katalog alat olahraga terkurasi, perbandingan produk yang jelas,
               dan Konsultan Produk untuk membantu kamu memilih perlengkapan yang tepat.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Button href="/products" size="lg" icon="arrow-right">
-                Jelajahi Katalog
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <Button
+                href="/products"
+                size="lg"
+                className="group w-full gap-3 text-base shadow-lg shadow-[var(--accent)]/10 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[var(--accent)]/20 sm:w-auto"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent-ink)]/10 transition-transform group-hover:translate-x-0.5">
+                  <Icon name="arrow-right" size={15} />
+                </span>
+                Jelajahi Produk
               </Button>
-              <Button onClick={openChat} size="lg" variant="outline" icon="chat">
+              <Button
+                onClick={openChat}
+                size="lg"
+                variant="outline"
+                className="w-full gap-3 border-[var(--accent)]/40 bg-[var(--accent)]/5 text-base text-[var(--foreground)] hover:border-[var(--accent)] hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] sm:w-auto"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[var(--accent)]/35 text-[var(--accent)]">
+                  <Icon name="chat" size={15} />
+                </span>
                 Tanya Konsultan Produk
               </Button>
             </div>

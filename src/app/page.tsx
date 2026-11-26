@@ -5,11 +5,10 @@ import FeaturedSellers from "@/components/landing/FeaturedSellers";
 import FlashSale from "@/components/landing/FlashSale";
 import Hero from "@/components/landing/Hero";
 import PromoMarquee from "@/components/landing/PromoMarquee";
-import QuickCategories from "@/components/landing/QuickCategories";
 import ServicesTeaser from "@/components/landing/ServicesTeaser";
 import Testimonials from "@/components/landing/Testimonials";
 import WhySports from "@/components/landing/WhySports";
-import { categories, faqs, products, sellers, services } from "@/lib/mock-data";
+import { faqs, products, sellers, services } from "@/lib/mock-data";
 
 const promoProducts = products.filter((product) => product.isPromo).slice(0, 4);
 const promoIds = new Set(promoProducts.map((product) => product.id));
@@ -24,7 +23,6 @@ export default function Home() {
     <>
       <Hero />
       <PromoMarquee />
-      <QuickCategories categories={categories} />
       <FlashSale products={promoProducts} />
       <FeaturedProducts products={featuredProducts} />
       <WhySports />

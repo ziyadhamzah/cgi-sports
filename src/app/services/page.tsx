@@ -17,7 +17,7 @@ export default function ServicesPage() {
 
       <div className="mt-12 grid gap-5 md:grid-cols-2">
         {services.map((service) => (
-          <article key={service.id} className="surface-card flex flex-col rounded-3xl p-6 md:p-7">
+          <article key={service.id} className="surface-card flex flex-col rounded-3xl p-6 transition hover:-translate-y-1 hover:border-[var(--accent)]/30 md:p-7">
             <div className="relative h-40 overflow-hidden rounded-2xl bg-[var(--surface-soft)]">
               <SafeImage
                 src={service.image}
@@ -25,7 +25,7 @@ export default function ServicesPage() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
               />
-              <span className="absolute bottom-3 right-3 rounded-full border border-white/10 bg-black/60 px-3 py-1 text-[11px] text-zinc-200 backdrop-blur">
+              <span className="absolute bottom-3 right-3 rounded-full border border-white/10 bg-black/60 px-3 py-1 text-xs text-zinc-200 backdrop-blur">
                 {service.duration}
               </span>
             </div>
@@ -33,12 +33,12 @@ export default function ServicesPage() {
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--accent)]/15 text-[var(--accent)]">
                 <Icon name={service.icon as IconName} size={21} />
               </span>
-              <h2 className="text-lg font-semibold text-white">{service.name}</h2>
+              <h2 className="text-lg font-semibold text-[var(--foreground)]">{service.name}</h2>
             </div>
-            <p className="mt-4 text-sm leading-6 text-zinc-400">{service.description}</p>
+            <p className="mt-4 text-sm leading-6 text-[var(--muted)]">{service.description}</p>
             <ul className="mt-5 space-y-2">
               {service.requirements.map((requirement) => (
-                <li key={requirement} className="flex items-start gap-2 text-xs text-zinc-500">
+                <li key={requirement} className="flex items-start gap-2 text-sm text-[var(--muted)]">
                   <Icon name="check" size={13} className="mt-0.5 shrink-0 text-[var(--accent)]" />
                   {requirement}
                 </li>
@@ -46,7 +46,7 @@ export default function ServicesPage() {
             </ul>
             <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-7">
               <div>
-                <p className="text-[11px] text-zinc-500">Mulai dari</p>
+                <p className="text-xs text-[var(--muted)]">Mulai dari</p>
                 <p className="text-lg font-semibold text-[var(--accent)]">{formatRupiah(service.price)}</p>
               </div>
               <Button href={`/services/${service.slug}`} icon="arrow-right">Detail layanan</Button>

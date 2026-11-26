@@ -166,7 +166,7 @@ export default function ChatWidget() {
         >
           <div className="flex items-center gap-3 border-b border-[var(--accent)]/20 bg-[var(--accent)]/10 px-4 py-3">
             <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[var(--accent)]/40 bg-[var(--background)] p-1">
-              <SafeImage src="/logo.webp" alt="CGI Sports" fill className="object-contain p-1" />
+              <SafeImage src="/logo.webp" alt="CGI Sports" fill sizes="44px" className="object-contain p-1" />
               <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[var(--surface)] bg-[var(--accent)]" />
             </span>
             <div className="min-w-0 flex-1">
@@ -207,7 +207,7 @@ export default function ChatWidget() {
                 <div key={message.id} className={`flex items-end gap-2 ${isUser ? "justify-end" : "justify-start"}`}>
                   {!isUser && (
                     <span className="relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[var(--accent)]/30 bg-[var(--accent)]/10 p-0.5">
-                      <SafeImage src="/logo.webp" alt="" fill className="object-contain p-0.5" />
+                      <SafeImage src="/logo.webp" alt="" fill sizes="28px" className="object-contain p-0.5" />
                     </span>
                   )}
                   <div
@@ -258,7 +258,7 @@ export default function ChatWidget() {
             {pending && (
               <div className="flex items-end gap-2" role="status" aria-label="Konsultan sedang mengetik">
                 <span className="relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[var(--accent)]/30 bg-[var(--accent)]/10 p-0.5">
-                  <SafeImage src="/logo.webp" alt="" fill className="object-contain p-0.5" />
+                  <SafeImage src="/logo.webp" alt="" fill sizes="28px" className="object-contain p-0.5" />
                 </span>
                 <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3">
                   {[0, 1, 2].map((dot) => (

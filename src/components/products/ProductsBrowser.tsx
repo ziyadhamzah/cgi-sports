@@ -2,7 +2,8 @@
 
 import { useMemo } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Badge, Button, EmptyState } from "@/components/ui";
+import { Button, EmptyState } from "@/components/ui";
+import { Icon } from "@/components/ui/Icon";
 import { filterProducts } from "@/lib/catalog";
 import { formatRupiah } from "@/lib/format";
 import { categories, cities, getCategoryName, sellers } from "@/lib/mock-data";
@@ -67,6 +68,14 @@ export default function ProductsBrowser() {
     router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
 
+  const removeFilter = (key: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete(key);
+    params.delete("page");
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
+
   const activeFilters = useMemo(() => {
     const items: { key: string; label: string }[] = [];
     if (filters.q) items.push({ key: "q", label: `Pencarian: ${filters.q}` });
@@ -104,8 +113,24 @@ export default function ProductsBrowser() {
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs text-[var(--muted)]">Filter aktif:</span>
               {activeFilters.map((item) => (
-                <Badge key={item.key} tone="neutral">{item.label}</Badge>
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={() => removeFilter(item.key)}
+                  aria-label={`Hapus filter ${item.label}`}
+                  className="inline-flex items-center gap-1 rounded-full border border-[var(--line)] bg-[var(--surface)] px-3 py-1.5 text-xs text-[var(--muted)] transition hover:border-[var(--accent)]/40 hover:text-[var(--foreground)]"
+                >
+                  {item.label}
+                  <Icon name="close" size={12} />
+                </button>
               ))}
+              <button
+                type="button"
+                onClick={() => router.replace(pathname, { scroll: false })}
+                className="text-xs font-medium text-[var(--accent)] transition hover:underline"
+              >
+                Hapus semua
+              </button>
             </div>
           )}
         </div>

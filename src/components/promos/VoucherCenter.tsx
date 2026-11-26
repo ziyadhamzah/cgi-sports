@@ -120,7 +120,7 @@ export default function VoucherCenter() {
                 </p>
                 <p className="mt-1 text-sm font-medium text-[var(--foreground)]">{voucher.label}</p>
                 <p className="mt-3 text-xs leading-6 text-[var(--muted)]">{voucher.description}</p>
-                <div className="mt-4 space-y-1.5 text-[11px] text-[var(--muted)]">
+                <div className="mt-4 space-y-1.5 text-xs text-[var(--muted)]">
                   <p className="flex items-center gap-2"><Icon name="cart" size={13} /> Minimal belanja {formatRupiah(voucher.minSpend)}</p>
                   {voucher.expiresAt && <p className="flex items-center gap-2"><Icon name="clock" size={13} /> Berlaku sampai {formatDate(voucher.expiresAt)}</p>}
                 </div>

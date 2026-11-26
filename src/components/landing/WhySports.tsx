@@ -44,13 +44,13 @@ export default function WhySports() {
           description="Fitur yang dirancang untuk mengurangi bingung dan mempercepat keputusan."
           center
         />
-        <div className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--line)] md:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
-            <div key={item.title} className="bg-[var(--surface)] p-8">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent)]/10 text-[var(--accent)]">
-                <Icon name={item.icon} size={19} />
+            <div key={item.title} className="surface-card rounded-3xl p-7 transition hover:-translate-y-1 hover:border-[var(--accent)]/30">
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--accent)]/20 bg-[var(--accent)]/10 text-[var(--accent)]">
+                <Icon name={item.icon} size={20} />
               </span>
-              <h3 className="mt-5 text-lg font-semibold text-[var(--foreground)]">{item.title}</h3>
+              <h3 className="mt-6 text-lg font-semibold text-[var(--foreground)]">{item.title}</h3>
               <p className="mt-2 text-sm leading-7 text-[var(--muted)]">{item.text}</p>
             </div>
           ))}

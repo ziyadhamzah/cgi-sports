@@ -10,6 +10,11 @@
   --accent: #c6f24a;
   --accent-strong: #d7f86d;
   --accent-ink: #0a0c0b;
+  --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  --card-shadow-hover: 0 18px 44px rgba(0, 0, 0, 0.32);
+  --card-accent: rgba(198, 242, 74, 0.07);
+  --card-accent-strong: rgba(198, 242, 74, 0.28);
+  --card-glow: rgba(198, 242, 74, 0.12);
 }
 
 :root[data-theme="light"] {
@@ -22,6 +27,11 @@
   --accent: #5b8c00;
   --accent-strong: #4a7500;
   --accent-ink: #0a0c0b;
+  --card-shadow: 0 12px 32px rgba(20, 23, 20, 0.08);
+  --card-shadow-hover: 0 18px 44px rgba(20, 23, 20, 0.14);
+  --card-accent: rgba(91, 140, 0, 0.06);
+  --card-accent-strong: rgba(91, 140, 0, 0.24);
+  --card-glow: rgba(91, 140, 0, 0.1);
 }
 
 @theme inline {
@@ -55,8 +65,31 @@ body {
 }
 
 .surface-card {
-  background: var(--surface);
+  position: relative;
+  background:
+    radial-gradient(140% 90% at 100% 0%, var(--card-accent), transparent 55%),
+    var(--surface);
   border: 1px solid var(--line);
+  box-shadow: var(--card-shadow);
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.surface-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--card-accent-strong), transparent);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.surface-card:hover {
+  border-color: var(--card-accent-strong);
+  box-shadow:
+    var(--card-shadow-hover),
+    0 0 0 1px var(--card-accent),
+    0 0 36px var(--card-glow);
 }
 
 .surface-soft {

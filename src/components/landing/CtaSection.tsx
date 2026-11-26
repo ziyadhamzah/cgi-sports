@@ -4,11 +4,7 @@ import { Button, SectionHeading } from "@/components/ui";
 
 export default function CtaSection() {
   function openChat() {
-    const fab = document.getElementById("chat-fab");
-    if (fab instanceof HTMLButtonElement && fab.getAttribute("aria-expanded") !== "true") {
-      fab.click();
-    }
-    window.setTimeout(() => document.getElementById("chat-input")?.focus(), 0);
+    window.dispatchEvent(new Event("cgi:open-chat"));
   }
 
   return (

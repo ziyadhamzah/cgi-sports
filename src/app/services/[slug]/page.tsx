@@ -6,6 +6,8 @@ import { Icon } from "@/components/ui/Icon";
 import { formatRupiah } from "@/lib/format";
 import { getServiceBySlug, services } from "@/lib/mock-data";
 
+export const instant = false;
+
 export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
 }
@@ -40,10 +42,10 @@ export default async function ServiceDetailPage({ params }: PageProps<"/services
             <Badge tone="accent">{formatRupiah(service.price)}</Badge>
             <Badge tone="neutral">Durasi {service.duration}</Badge>
           </div>
-          <h2 className="mt-7 text-lg font-semibold text-white">Syarat dan ketentuan</h2>
+          <h2 className="mt-7 text-lg font-semibold text-[var(--foreground)]">Syarat dan ketentuan</h2>
           <ul className="mt-5 space-y-3">
             {service.requirements.map((requirement, index) => (
-              <li key={requirement} className="flex items-start gap-3 text-sm leading-6 text-zinc-400">
+              <li key={requirement} className="flex items-start gap-3 text-sm leading-6 text-[var(--muted)]">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--accent)]/10 text-[11px] font-semibold text-[var(--accent)]">
                   {index + 1}
                 </span>
@@ -53,7 +55,7 @@ export default async function ServiceDetailPage({ params }: PageProps<"/services
           </ul>
           <div className="surface-soft mt-8 flex items-start gap-3 rounded-2xl p-5">
             <Icon name="info" size={18} className="mt-0.5 shrink-0 text-[var(--accent)]" />
-            <p className="text-xs leading-6 text-zinc-400">
+            <p className="text-xs leading-6 text-[var(--muted)]">
               Pengajuan diproses oleh tim CGI Sports. Kamu akan melihat nomor pengajuan setelah form berhasil dikirim.
             </p>
           </div>

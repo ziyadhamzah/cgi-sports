@@ -33,17 +33,17 @@ export default function Testimonials() {
       />
       <div className="mt-12 grid gap-4 md:grid-cols-3">
         {testimonials.map((testimonial) => (
-          <figure key={testimonial.name} className="surface-card flex flex-col rounded-2xl p-6">
-            <Icon name="chat" size={20} className="text-[var(--accent)]" />
+          <figure key={testimonial.name} className="surface-card flex flex-col rounded-3xl p-6 transition hover:-translate-y-1 hover:border-[var(--accent)]/30 md:p-7">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--accent)]/10 text-[var(--accent)]">
+              <Icon name="chat" size={18} />
+            </span>
             <blockquote className="mt-4 text-sm leading-7 text-[var(--foreground)]">
               {testimonial.text}
             </blockquote>
             <figcaption className="mt-auto flex items-center justify-between gap-2 border-t border-[var(--line)] pt-4">
               <div className="flex items-center gap-3">
-                <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[var(--surface-soft)]">
-                  <span className="flex h-full w-full items-center justify-center text-sm font-semibold text-[var(--accent)]">
-                    {testimonial.name.charAt(0)}
-                  </span>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/10 text-sm font-semibold text-[var(--accent)]">
+                  {testimonial.name.charAt(0)}
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-[var(--foreground)]">{testimonial.name}</p>

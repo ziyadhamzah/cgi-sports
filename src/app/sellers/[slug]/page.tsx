@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import SellerStorefront from "@/components/seller/SellerStorefront";
 import { getSellerBySlug, sellers } from "@/lib/mock-data";
 
+export const instant = false;
+
 export function generateStaticParams() {
   return sellers.map((seller) => ({ slug: seller.slug }));
 }

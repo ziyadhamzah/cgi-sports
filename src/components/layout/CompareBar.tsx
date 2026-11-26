@@ -58,7 +58,7 @@ export default function CompareBar() {
               </Link>
               <div className="max-w-32">
                 <p className="truncate text-xs font-medium text-[var(--foreground)]">{item.name}</p>
-                <p className="text-[11px] text-[var(--accent)]">{formatRupiah(item.price)}</p>
+                <p className="text-xs text-[var(--accent)]">{formatRupiah(item.price)}</p>
               </div>
               <button
                 type="button"

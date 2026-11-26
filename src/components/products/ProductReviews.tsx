@@ -54,7 +54,7 @@ export default function ProductReviews({ product }: { product: Product }) {
           <Icon name="star" size={22} filled className="text-amber-400" />
           <div>
             <p className="text-lg font-semibold text-[var(--foreground)]">{summary.avg.toFixed(1)}</p>
-            <p className="text-[11px] text-[var(--muted)]">{summary.total} ulasan</p>
+            <p className="text-xs text-[var(--muted)]">{summary.total} ulasan</p>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@ export default function ProductReviews({ product }: { product: Product }) {
                         {review.name}
                         {review.verified && <Badge tone="success">Terverifikasi</Badge>}
                       </p>
-                      <p className="text-[11px] text-[var(--muted)]">
+                      <p className="text-xs text-[var(--muted)]">
                         {formatDate(review.date)}{review.city ? ` · ${review.city}` : ""}
                       </p>
                     </div>

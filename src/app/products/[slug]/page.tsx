@@ -12,6 +12,8 @@ import { getRelatedProducts } from "@/lib/catalog";
 import { formatRupiah } from "@/lib/format";
 import { getCategoryName, getProductBySlug, getSellerBySlug, products } from "@/lib/mock-data";
 
+export const instant = false;
+
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
 }

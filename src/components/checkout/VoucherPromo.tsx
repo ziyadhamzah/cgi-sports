@@ -53,7 +53,7 @@ export default function VoucherPromo({ onApply, appliedCode, claimedCodes }: Vou
               </Badge>
             </div>
             <p className="mt-2 text-xs leading-5 text-zinc-400">{voucher.description}</p>
-            <p className="mt-1 text-[11px] text-zinc-500">Minimal belanja {formatRupiah(voucher.minSpend)}</p>
+            <p className="mt-1 text-xs text-zinc-500">Minimal belanja {formatRupiah(voucher.minSpend)}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {expired ? (
                 <Button size="sm" variant="secondary" disabled>Tidak tersedia</Button>
