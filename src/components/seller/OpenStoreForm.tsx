@@ -67,10 +67,10 @@ export default function OpenStoreForm() {
         </Field>
         <div className="md:col-span-2">
           <ImageUpload
-            label="Foto toko"
+            label="Foto profil toko"
             value={photo}
             onChange={setPhoto}
-            hint="Foto ini tampil di kartu toko dan halaman toko. Maksimal 2 MB."
+            hint="Tampil di kartu toko dan halaman toko. Gunakan gambar kotak. Maksimal 2 MB."
             square
           />
         </div>

@@ -119,7 +119,7 @@ export default async function ProductDetailPage({ params }: PageProps<"/products
             <div className="surface-soft rounded-2xl p-4">
               <Icon name="shield" size={20} className="text-[var(--accent)]" />
               <p className="mt-3 text-sm font-medium text-white">Transaksi aman</p>
-              <p className="mt-1 text-xs text-zinc-500">Pembayaran disimulasikan dalam mode demo</p>
+              <p className="mt-1 text-xs text-zinc-500">Pembayaran diproses setelah konfirmasi pesanan</p>
             </div>
             <div className="surface-soft rounded-2xl p-4">
               <Icon name="refresh" size={20} className="text-[var(--accent)]" />

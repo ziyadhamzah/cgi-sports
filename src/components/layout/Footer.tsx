@@ -5,9 +5,11 @@ import { Icon, type IconName } from "@/components/ui/Icon";
 
 const footerLinks = [
   { href: "/products", label: "Semua produk" },
+  { href: "/promos", label: "Promo & voucher" },
   { href: "/sellers", label: "Daftar penjual" },
   { href: "/services", label: "Layanan" },
   { href: "/bandingkan", label: "Bandingkan" },
+  { href: "/orders", label: "Pesanan saya" },
   { href: "/lacak", label: "Lacak pesanan" },
   { href: "/account", label: "Akun saya" },
   { href: "/admin/analytics", label: "Analitik admin" },
@@ -26,7 +28,7 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div>
             <Link href="/" className="inline-flex items-center" aria-label="CGI Sports beranda">
-              <Image src="/logo.webp" alt="CGI Sports" width={1536} height={1024} className="h-10 w-auto object-contain" />
+              <Image src="/logo.webp" alt="CGI Sports" width={1536} height={1024} className="h-14 w-auto object-contain object-left" />
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-7 text-[var(--muted)]">
               Marketplace alat olahraga dengan katalog terkurasi, perbandingan produk, dan

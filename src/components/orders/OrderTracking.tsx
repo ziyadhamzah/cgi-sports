@@ -1,15 +1,18 @@
 "use client";
 
-import { Badge } from "@/components/ui";
+import { Badge, Button } from "@/components/ui";
 import { Icon } from "@/components/ui/Icon";
 import { statusLabel, trackingStages } from "@/lib/catalog";
 import { formatDate, formatDateTime } from "@/lib/format";
 import { products } from "@/lib/mock-data";
+import { openSellerChat } from "@/lib/seller-chat";
+import { useStore } from "@/lib/store/StoreProvider";
 import type { Order } from "@/lib/types";
 
 const stageOffsets = [0, 15 * 60 * 1000, 24 * 60 * 60 * 1000, 72 * 60 * 60 * 1000];
 
 export default function OrderTracking({ order }: { order: Order }) {
+  const { resolveProduct } = useStore();
   const { stages, index } = trackingStages(order.status);
   const created = new Date(order.createdAt).getTime();
   const base = Number.isFinite(created) ? created : 0;
@@ -25,6 +28,23 @@ export default function OrderTracking({ order }: { order: Order }) {
         ? "warning"
         : "accent";
   const progress = Math.max(0, index) / (stages.length - 1) * 100;
+  const firstProduct = resolveProduct(order.items[0]?.productId ?? "");
+  const sellerContext = {
+    sellerId: firstProduct?.sellerId ?? "cgi",
+    sellerSlug: firstProduct?.sellerSlug ?? "cgi-official-store",
+    sellerName: firstProduct?.sellerName ?? "CGI Official Store",
+    product: firstProduct
+      ? { id: firstProduct.id, slug: firstProduct.slug, name: firstProduct.name, price: firstProduct.price, image: firstProduct.image }
+      : undefined,
+    orderNumber: order.number,
+  };
+
+  const askOrder = () => {
+    window.dispatchEvent(new CustomEvent("cgi:open-chat", {
+      detail: { prompt: `Lacak pesanan ${order.number}` },
+    }));
+    window.setTimeout(() => document.getElementById("chat-input")?.focus(), 0);
+  };
 
   return (
     <section className="surface-card rounded-3xl p-6">
@@ -36,9 +56,19 @@ export default function OrderTracking({ order }: { order: Order }) {
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="neutral">
             <Icon name="package" size={12} /> {order.resi ?? "Resi belum tersedia"}
+            {order.courier ? ` · ${order.courier}` : ""}
           </Badge>
           <Badge tone={tone}>{canceled ? "Dibatalkan" : completed ? "Selesai" : "Dalam proses"}</Badge>
         </div>
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-2">
+        <Button size="sm" variant="outline" icon="chat" onClick={askOrder}>
+          Tanya pesanan
+        </Button>
+        <Button size="sm" variant="ghost" icon="store" onClick={() => openSellerChat(sellerContext)}>
+          Chat penjual
+        </Button>
       </div>
 
       <div className="relative mt-8">

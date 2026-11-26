@@ -10,7 +10,7 @@ import { useStore } from "@/lib/store/StoreProvider";
 import { useSavedVoucher } from "@/lib/voucher";
 
 export default function CartPage() {
-  const { ready, cartItems, cart, subtotal, itemCount, allProducts, updateQuantity, removeFromCart, clearCart, resolveProduct } = useStore();
+  const { ready, cartItems, cart, subtotal, itemCount, allProducts, claimedVouchers, updateQuantity, removeFromCart, clearCart, resolveProduct } = useStore();
   const [savedVoucher, setSavedVoucher] = useSavedVoucher();
   const [draftVoucher, setDraftVoucher] = useState<string | null>(null);
   const [voucherError, setVoucherError] = useState("");
@@ -18,8 +18,8 @@ export default function CartPage() {
   const appliedCode = savedVoucher;
 
   const validation = useMemo(
-    () => (appliedCode ? validateVoucher(appliedCode, subtotal, cart, resolveProduct) : {}),
-    [appliedCode, subtotal, cart, resolveProduct],
+    () => (appliedCode ? validateVoucher(appliedCode, subtotal, cart, resolveProduct, claimedVouchers) : {}),
+    [appliedCode, subtotal, cart, resolveProduct, claimedVouchers],
   );
   const voucher = validation.voucher;
   const discount = useMemo(
@@ -36,7 +36,7 @@ export default function CartPage() {
   );
 
   const applyVoucher = () => {
-    const result = validateVoucher(voucherInput, subtotal, cart, resolveProduct);
+    const result = validateVoucher(voucherInput, subtotal, cart, resolveProduct, claimedVouchers);
     if (!result.voucher) {
       setSavedVoucher("");
       setDraftVoucher("");

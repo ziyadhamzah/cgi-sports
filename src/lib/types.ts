@@ -90,6 +90,7 @@ export type Order = {
   paymentMethod: string;
   createdAt: string;
   resi?: string;
+  courier?: string;
   paidAt?: string;
   userId?: string;
 };
@@ -129,6 +130,23 @@ export type Review = {
   date: string;
   reply?: string;
   verified?: boolean;
+};
+
+export type SellerChatContext = {
+  sellerId: string;
+  sellerSlug: string;
+  sellerName: string;
+  product?: { id: string; slug?: string; name: string; price: number; image?: string };
+  orderNumber?: string;
+};
+
+export type SellerChatMessage = {
+  id: string;
+  key: string;
+  sellerName: string;
+  role: "buyer" | "seller";
+  text: string;
+  at: string;
 };
 
 export type NotificationItem = {
@@ -176,6 +194,8 @@ export type Voucher = {
   minSpend: number;
   maxDiscount?: number;
   categorySlug?: string;
+  badge?: string;
+  expiresAt?: string;
 };
 
 export type MySeller = {

@@ -3,6 +3,7 @@ import type {
   NotificationItem,
   Order,
   Product,
+  Review,
   Seller,
   Service,
   Voucher,
@@ -33,6 +34,7 @@ export const sellers: Seller[] = [
     isOfficial: true,
     joinedYear: 2021,
     banner: "/images/sellers/cgi-official-store.jpg",
+    photo: "/images/sellers/profiles/cgi-official-store.jpg",
   },
   {
     id: "s2",
@@ -48,6 +50,7 @@ export const sellers: Seller[] = [
     isOfficial: false,
     joinedYear: 2022,
     banner: "/images/sellers/sportline-indonesia.jpg",
+    photo: "/images/sellers/profiles/sportline-indonesia.jpg",
   },
   {
     id: "s3",
@@ -63,6 +66,7 @@ export const sellers: Seller[] = [
     isOfficial: false,
     joinedYear: 2023,
     banner: "/images/sellers/raket-dan-rekan.jpg",
+    photo: "/images/sellers/profiles/raket-dan-rekan.jpg",
   },
   {
     id: "s4",
@@ -78,6 +82,7 @@ export const sellers: Seller[] = [
     isOfficial: false,
     joinedYear: 2023,
     banner: "/images/sellers/home-gym-corner.jpg",
+    photo: "/images/sellers/profiles/home-gym-corner.jpg",
   },
   {
     id: "s5",
@@ -93,6 +98,7 @@ export const sellers: Seller[] = [
     isOfficial: false,
     joinedYear: 2024,
     banner: "/images/sellers/tim-jaya-store.jpg",
+    photo: "/images/sellers/profiles/tim-jaya-store.jpg",
   },
   {
     id: "s6",
@@ -108,6 +114,7 @@ export const sellers: Seller[] = [
     isOfficial: false,
     joinedYear: 2022,
     banner: "/images/sellers/trail-and-camp.jpg",
+    photo: "/images/sellers/profiles/trail-and-camp.jpg",
   },
 ];
 
@@ -206,9 +213,20 @@ export const services: Service[] = [
 ];
 
 export const vouchers: Voucher[] = [
-  { code: "CGI10", label: "Diskon 10%", description: "Potongan 10% maksimal Rp50.000, minimal belanja Rp150.000.", type: "percent", value: 10, minSpend: 150000, maxDiscount: 50000 },
-  { code: "LARI15", label: "Diskon 15%", description: "Khusus produk kategori Lari, minimal belanja Rp250.000.", type: "percent", value: 15, minSpend: 250000, categorySlug: "lari" },
-  { code: "HEMAT20K", label: "Potongan Rp20.000", description: "Potongan tetap untuk belanja minimal Rp100.000.", type: "fixed", value: 20000, minSpend: 100000 },
+  { code: "CGI10", label: "Diskon 10%", description: "Potongan 10% maksimal Rp50.000, minimal belanja Rp150.000.", type: "percent", value: 10, minSpend: 150000, maxDiscount: 50000, badge: "Terpopuler", expiresAt: "2026-12-31T23:59:59.000Z" },
+  { code: "LARI15", label: "Diskon 15%", description: "Khusus produk kategori Lari, minimal belanja Rp250.000.", type: "percent", value: 15, minSpend: 250000, categorySlug: "lari", badge: "Khusus Lari", expiresAt: "2026-12-20T23:59:59.000Z" },
+  { code: "HEMAT20K", label: "Potongan Rp20.000", description: "Potongan tetap untuk belanja minimal Rp100.000.", type: "fixed", value: 20000, minSpend: 100000, badge: "Semua produk", expiresAt: "2026-12-15T23:59:59.000Z" },
+];
+
+export const demoClaimedVouchers = ["CGI10"];
+
+export const demoReviews: Review[] = [
+  { id: "dr1", productId: "p1", name: "Andi Pratama", city: "Semarang", rating: 5, text: "Dumbbell-nya solid, adjustable-nya gampang. Pengiriman cepat dan packing aman.", date: "2026-11-18T09:20:00.000Z", verified: true, reply: "Terima kasih, Andi. Selalu latihan yang aman!" },
+  { id: "dr2", productId: "p1", name: "Rina Wulandari", city: "Bandung", rating: 4, text: "Kualitas sesuai harga. Cuma petunjuknya agak singkat, tapi overall puas.", date: "2026-11-21T13:45:00.000Z", verified: true },
+  { id: "dr3", productId: "p6", name: "Bagas Putra", city: "Jakarta Pusat", rating: 5, text: "Sepatu larinya ringan dan bantalan nyaman buat jogging 10 km.", date: "2026-11-19T06:10:00.000Z", verified: true },
+  { id: "dr4", productId: "p10", name: "Sinta Maharani", city: "Surabaya", rating: 5, text: "Raket karbonnya ringan, smash jadi lebih mudah. Senar sudah dipasang rapi.", date: "2026-11-22T10:30:00.000Z", verified: true, reply: "Terima kasih sudah mempercayai layanan stringing kami." },
+  { id: "dr5", productId: "p15", name: "Fajar Nugroho", city: "Medan", rating: 4, text: "Sepatu futsal grip-nya bagus di lapangan indoor. Size sesuai chart.", date: "2026-11-23T15:05:00.000Z", verified: true },
+  { id: "dr6", productId: "p20", name: "Dimas Aryo", city: "Malang", rating: 5, text: "Tenda camping 2 orang muat dan cepat dipasang. Anti air juga oke.", date: "2026-11-24T08:00:00.000Z", verified: true },
 ];
 
 export const paymentMethods = [
@@ -228,7 +246,7 @@ export const faqs = [
   { q: "Bagaimana cara memilih alat olahraga yang tepat?", a: "Ceritakan tujuan, level, dan kendala kamu lewat Konsultan Produk. Saya akan mencocokkan kebutuhan itu dengan produk yang tersedia di katalog." },
   { q: "Apakah bisa membandingkan beberapa produk?", a: "Bisa. Tambahkan hingga empat produk ke halaman Bandingkan untuk melihat perbedaan harga, rating, stok, dan penjual." },
   { q: "Bagaimana cara melacak pesanan?", a: "Buka halaman Pesanan atau Lacak, lalu masukkan nomor pesanan atau nomor resi. Status dan perkiraan tiba akan ditampilkan." },
-  { q: "Apakah pembayaran bisa langsung selesai?", a: "Dalam mode demo, pembayaran disimulasikan. Pilih metode pembayaran lalu klik konfirmasi pembayaran pada halaman pesanan." },
+  { q: "Apakah pembayaran bisa langsung selesai?", a: "Pilih metode pembayaran lalu klik konfirmasi pembayaran pada halaman pesanan untuk melanjutkan pesanan kamu." },
   { q: "Bisakah saya membuka toko sendiri?", a: "Bisa. Buka menu Dashboard Penjual, isi profil toko, lalu tambahkan produk. Semua data tersimpan di browser kamu." },
 ];
 
@@ -251,14 +269,15 @@ export function demoOrders(): Order[] {
       shippingFee: 15000,
       discount: 0,
       total: 873000,
-      customerName: "Pengguna Demo",
+      customerName: "Pelanggan CGI Sports",
       phone: "081234567890",
-      address: "Jl. Contoh No. 10",
+      address: "Jl. Melati No. 10",
       city: "Bandung",
       postalCode: "40111",
       paymentMethod: "qris",
       createdAt: "2026-11-20T09:30:00.000Z",
       resi: "CGI8248219041821",
+      courier: "JNE REG",
     },
     {
       id: "demo-tracking-2",
@@ -271,14 +290,15 @@ export function demoOrders(): Order[] {
       shippingFee: 15000,
       discount: 0,
       total: 564000,
-      customerName: "Pengguna Demo",
+      customerName: "Pelanggan CGI Sports",
       phone: "081234567890",
-      address: "Jl. Contoh No. 10",
+      address: "Jl. Melati No. 10",
       city: "Surabaya",
       postalCode: "60211",
       paymentMethod: "bca",
       createdAt: "2026-11-22T14:15:00.000Z",
       resi: "CGI8219076623190",
+      courier: "SiCepat BEST",
     },
   ];
 }

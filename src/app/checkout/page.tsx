@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import CheckoutWizard from "@/components/checkout/CheckoutWizard";
-import { Badge, Breadcrumbs, SectionHeading } from "@/components/ui";
+import { Breadcrumbs, SectionHeading } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Checkout | CGI Sports",
@@ -12,7 +12,6 @@ export default function CheckoutPage() {
     <div className="mx-auto max-w-6xl px-6 py-12">
       <Breadcrumbs items={[{ label: "Beranda", href: "/" }, { label: "Keranjang", href: "/cart" }, { label: "Checkout" }]} />
       <div className="mt-8">
-        <Badge tone="warning">Mode demo: pembayaran disimulasikan</Badge>
         <SectionHeading
           eyebrow="Checkout"
           title="Selesaikan pesanan kamu"

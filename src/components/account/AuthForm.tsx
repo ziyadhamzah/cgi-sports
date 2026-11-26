@@ -53,7 +53,7 @@ export default function AuthForm({ mode, next = "" }: AuthFormProps) {
         <SectionHeading
           title={isRegister ? "Buat akun baru" : "Masuk ke akun"}
           description={isRegister
-            ? "Daftar demo untuk menyimpan alamat, wishlist, dan riwayat layanan kamu."
+            ? "Daftar untuk menyimpan alamat, wishlist, dan riwayat layanan kamu."
             : "Masuk dengan nama dan email untuk melanjutkan ke halaman akun."}
         />
         <form onSubmit={handleSubmit} className="mt-7 space-y-5">
@@ -78,7 +78,7 @@ export default function AuthForm({ mode, next = "" }: AuthFormProps) {
               required
             />
           </Field>
-          <Field label="Kata sandi" hint="Mode demo: kata sandi tidak disimpan.">
+          <Field label="Kata sandi" hint="Gunakan minimal 6 karakter.">
             <input
               className={inputClass}
               type="password"
@@ -101,9 +101,6 @@ export default function AuthForm({ mode, next = "" }: AuthFormProps) {
           </Link>
         </p>
       </div>
-      <p className="mt-5 text-center text-[11px] text-zinc-600">
-Mode demo: data akun hanya disimpan di browser ini.
-      </p>
     </div>
   );
 }

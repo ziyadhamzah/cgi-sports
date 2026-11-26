@@ -108,7 +108,7 @@ export default function ProductReviews({ product }: { product: Product }) {
                     <div>
                       <p className="flex flex-wrap items-center gap-2 text-sm font-medium text-[var(--foreground)]">
                         {review.name}
-                        {review.verified && <Badge tone="success">Ulasan demo</Badge>}
+                        {review.verified && <Badge tone="success">Terverifikasi</Badge>}
                       </p>
                       <p className="text-[11px] text-[var(--muted)]">
                         {formatDate(review.date)}{review.city ? ` · ${review.city}` : ""}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import { Badge, Button, Field, inputClass } from "@/components/ui";
+import { Button, Field, inputClass } from "@/components/ui";
 import { Icon } from "@/components/ui/Icon";
 import { formatDate } from "@/lib/format";
 import { useStore } from "@/lib/store/StoreProvider";
@@ -41,10 +41,7 @@ export default function ServiceRequestForm({ service }: { service: Service }) {
       <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--accent)]/15 text-[var(--accent)]">
         <Icon name="ticket" size={21} />
       </div>
-      <div className="mt-6">
-        <Badge tone="warning">Mode demo</Badge>
-      </div>
-      <h2 className="mt-4 text-xl font-semibold text-white">Ajukan layanan</h2>
+      <h2 className="mt-6 text-xl font-semibold text-white">Ajukan layanan</h2>
       <p className="mt-2 text-sm leading-6 text-zinc-400">
         Isi detail kebutuhanmu untuk {service.name}. Pengajuan hanya disimpan di browser kamu; tidak ada tim yang akan menghubungi secara otomatis.
       </p>

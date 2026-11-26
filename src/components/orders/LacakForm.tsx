@@ -58,7 +58,7 @@ export default function LacakForm() {
         </Field>
         <p className="mt-4 flex items-start gap-2 text-[11px] text-zinc-500">
           <Icon name="info" size={14} className="mt-0.5 shrink-0" />
-          Pesanan demo tersedia dengan nomor CGI-20261120-4821.
+          Nomor pesanan: CGI-20261120-4821.
         </p>
       </form>
 

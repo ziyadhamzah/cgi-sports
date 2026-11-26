@@ -149,7 +149,7 @@ export default function AnalyticsPage() {
               <Icon name="shield" size={21} />
             </div>
             <h2 className="mt-6 text-xl font-semibold text-white">Panel admin terkunci</h2>
-            <p className="mt-2 text-sm leading-6 text-zinc-400">Masukkan kata sandi admin demo untuk melihat statistik.</p>
+            <p className="mt-2 text-sm leading-6 text-zinc-400">Masukkan kata sandi admin untuk melihat statistik.</p>
             <div className="mt-6">
               <Field label="Kata sandi admin">
                 <input

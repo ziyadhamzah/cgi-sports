@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import "./globals.css";
 import AnalyticsTracker from "@/components/layout/AnalyticsTracker";
 import ChatWidget from "@/components/layout/ChatWidget";
+import SellerChatPanel from "@/components/chat/SellerChatPanel";
 import CompareBar from "@/components/layout/CompareBar";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
@@ -25,10 +26,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://cgi-sports.example.com"),
   title: "CGI Sports | Marketplace Alat Olahraga",
   description:
-    "Temukan, bandingkan, dan lihat alat olahraga favoritmu. Coba Konsultan Produk berbasis kata kunci di CGI Sports, prototipe demo.",
+    "Temukan, bandingkan, dan pilih alat olahraga favoritmu. Coba Konsultan Produk di CGI Sports untuk rekomendasi yang sesuai.",
   openGraph: {
     title: "CGI Sports | Marketplace Alat Olahraga",
-    description: "Katalog alat olahraga, perbandingan produk, dan Konsultan Produk untuk prototipe demo.",
+    description: "Katalog alat olahraga, perbandingan produk, dan Konsultan Produk untuk menemukan perlengkapan yang tepat.",
     images: ["/logo.webp"],
   },
   twitter: {
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main" className="mx-auto min-h-[60vh] w-full">{children}</main>
           <Footer />
           <ChatWidget />
+          <SellerChatPanel />
           <Suspense fallback={null}>
             <CompareBar />
           </Suspense>

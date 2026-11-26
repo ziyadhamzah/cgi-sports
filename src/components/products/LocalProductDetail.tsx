@@ -109,7 +109,7 @@ export default function LocalProductDetail({ slug }: { slug: string }) {
             <div className="surface-soft rounded-2xl p-4">
               <Icon name="shield" size={20} className="text-[var(--accent)]" />
               <p className="mt-3 text-sm font-medium text-[var(--foreground)]">Transaksi aman</p>
-              <p className="mt-1 text-xs text-[var(--muted)]">Pembayaran simulasi di mode demo</p>
+              <p className="mt-1 text-xs text-[var(--muted)]">Pembayaran diproses setelah konfirmasi pesanan</p>
             </div>
             <div className="surface-soft rounded-2xl p-4">
               <Icon name="refresh" size={20} className="text-[var(--accent)]" />

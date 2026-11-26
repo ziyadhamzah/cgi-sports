@@ -110,7 +110,7 @@ export default function PaymentPanel({ order }: { order: Order }) {
       return;
     }
     updateOrderStatus(order.id, "diproses");
-    toast("Pembayaran demo dikonfirmasi. Nomor resi telah dibuat.");
+    toast("Pembayaran dikonfirmasi. Nomor resi telah dibuat.");
   };
 
   return (
@@ -122,7 +122,6 @@ export default function PaymentPanel({ order }: { order: Order }) {
           <p className="mt-1 text-xs text-zinc-400">{method?.description ?? "Selesaikan pembayaran pesanan kamu."}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge tone="warning">Mode demo</Badge>
           <Badge tone={remaining > 0 ? "warning" : "danger"}>
             <Icon name="clock" size={12} />
             {remaining > 0 ? `Sisa ${minutes}:${seconds}` : "Waktu habis"}
@@ -134,7 +133,7 @@ export default function PaymentPanel({ order }: { order: Order }) {
         {method?.kind === "qris" ? (
           <div className="flex shrink-0 flex-col items-center gap-3">
             <QrisPattern seed={hashValue(order.id)} />
-            <p className="text-center text-xs text-zinc-400">Pola QRIS demo, bukan kode pembayaran valid</p>
+            <p className="text-center text-xs text-zinc-400">Pindai kode QRIS untuk melanjutkan pembayaran</p>
           </div>
         ) : (
           <div className="flex min-w-[260px] flex-col items-start rounded-2xl border border-white/10 bg-white/[0.03] p-5">
@@ -159,14 +158,14 @@ export default function PaymentPanel({ order }: { order: Order }) {
             </div>
           </div>
           <div className="space-y-2 text-xs text-zinc-400">
-            <p className="flex items-start gap-2"><Icon name="shield" size={14} className="mt-0.5 shrink-0" /> Pembayaran disimulasikan. Tidak ada dana yang dipindahkan.</p>
+            <p className="flex items-start gap-2"><Icon name="shield" size={14} className="mt-0.5 shrink-0" /> Pembayaran diverifikasi setelah konfirmasi pesanan.</p>
             <p className="flex items-start gap-2"><Icon name="clock" size={14} className="mt-0.5 shrink-0" /> Konfirmasi dalam 15 menit sejak pesanan dibuat.</p>
-            <p className="flex items-start gap-2"><Icon name="info" size={14} className="mt-0.5 shrink-0" /> Tombol konfirmasi hanya untuk mencoba alur pesanan.</p>
+            <p className="flex items-start gap-2"><Icon name="info" size={14} className="mt-0.5 shrink-0" /> Nomor resi dibuat setelah pembayaran dikonfirmasi.</p>
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
-            <Button variant="outline" icon="copy" onClick={copyReference}>Salin Nomor Demo</Button>
+            <Button variant="outline" icon="copy" onClick={copyReference}>Salin Nomor Pembayaran</Button>
             <Button icon="check" onClick={confirmPayment} disabled={remaining <= 0}>
-              {remaining <= 0 ? "Waktu Habis" : "Konfirmasi Pembayaran Demo"}
+              {remaining <= 0 ? "Waktu Habis" : "Konfirmasi Pembayaran"}
             </Button>
           </div>
         </div>

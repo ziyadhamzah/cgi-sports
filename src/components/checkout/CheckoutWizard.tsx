@@ -43,6 +43,7 @@ export default function CheckoutWizard() {
     itemCount,
     user,
     addresses,
+    claimedVouchers,
     resolveProduct,
     addAddress,
     setPrimaryAddress,
@@ -76,8 +77,8 @@ export default function CheckoutWizard() {
   }, [addresses, overrides, user]);
 
   const validation = useMemo(
-    () => (appliedCode ? validateVoucher(appliedCode, subtotal, cart, resolveProduct) : {}),
-    [appliedCode, subtotal, cart, resolveProduct],
+    () => (appliedCode ? validateVoucher(appliedCode, subtotal, cart, resolveProduct, claimedVouchers) : {}),
+    [appliedCode, subtotal, cart, resolveProduct, claimedVouchers],
   );
   const voucher = validation.voucher;
   const discount = useMemo(
@@ -91,7 +92,7 @@ export default function CheckoutWizard() {
   };
 
   const applyVoucher = (code: string) => {
-    const result = validateVoucher(code, subtotal, cart, resolveProduct);
+    const result = validateVoucher(code, subtotal, cart, resolveProduct, claimedVouchers);
     if (!result.voucher) {
       setSavedVoucher("");
       setDraftVoucher("");
@@ -397,7 +398,7 @@ export default function CheckoutWizard() {
                 </div>
                 {voucher && !voucherError && !validation.error && <p className="mt-3 text-xs text-emerald-300">Voucher {voucher.code} aktif, hemat {formatRupiah(discount)}.</p>}
                 {(voucherError || validation.error) && <p className="mt-3 text-xs text-rose-300">{voucherError || validation.error}</p>}
-                <VoucherPromo onApply={applyVoucher} appliedCode={appliedCode} />
+                <VoucherPromo onApply={applyVoucher} appliedCode={appliedCode} claimedCodes={claimedVouchers} />
               </section>
             </div>
 
@@ -416,7 +417,7 @@ export default function CheckoutWizard() {
               </div>
               <p className="mt-3 flex items-start gap-2 text-[11px] leading-5 text-[var(--muted)]">
                 <Icon name="info" size={14} className="mt-0.5 shrink-0" />
-                Mode demo: tidak ada pembayaran atau pengiriman nyata. Nomor resi dibuat setelah pembayaran dikonfirmasi.
+                Nomor resi dibuat setelah pembayaran dikonfirmasi.
               </p>
               <div className="mt-6">
                 <Button icon="check" full onClick={submitOrder} disabled={submitting || cartItems.length === 0}>

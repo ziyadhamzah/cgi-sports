@@ -4,10 +4,13 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExte
 import { cartSubtotal, summarizeAnalytics } from "@/lib/catalog";
 import { createId, makeResi, slugify } from "@/lib/format";
 import {
+  demoClaimedVouchers,
   demoNotifications,
   demoOrders,
+  demoReviews,
   products as baseProducts,
 } from "@/lib/mock-data";
+import { sellerChatKey, sellerChatReply } from "@/lib/seller-chat";
 import type {
   AnalyticsEvent,
   AnalyticsEventType,
@@ -21,6 +24,8 @@ import type {
   ProductEntry,
   Review,
   SavedAddress,
+  SellerChatContext,
+  SellerChatMessage,
   Service,
   ServiceRequest,
   ToastVariant,
@@ -45,6 +50,8 @@ type StoreData = {
   theme: "dark" | "light";
   analytics: AnalyticsEvent[];
   serviceRequests: ServiceRequest[];
+  claimedVouchers: string[];
+  sellerChats: Record<string, SellerChatMessage[]>;
   toasts: ToastItem[];
 };
 
@@ -95,6 +102,9 @@ type StoreContextValue = StoreData & {
   toast: (message: string, variant?: ToastVariant) => void;
   dismissToast: (id: string) => void;
   createServiceRequest: (service: Service, notes: string) => ServiceRequest;
+  claimVoucher: (code: string) => void;
+  sendSellerChat: (context: SellerChatContext, text: string) => void;
+  clearSellerChat: (key: string) => void;
 };
 
 const emptyData: StoreData = {
@@ -114,6 +124,8 @@ const emptyData: StoreData = {
   theme: "dark",
   analytics: [],
   serviceRequests: [],
+  claimedVouchers: [],
+  sellerChats: {},
   toasts: [],
 };
 
@@ -133,6 +145,8 @@ const KEYS: Record<string, string> = {
   theme: "cgi_sports_theme",
   analytics: "cgi_sports_analytics",
   serviceRequests: "cgi_sports_service_requests",
+  claimedVouchers: "cgi_sports_claimed_vouchers",
+  sellerChats: "cgi_sports_seller_chats",
 };
 
 type SetStore = (next: StoreData | ((prev: StoreData) => StoreData)) => void;
@@ -169,7 +183,7 @@ function hydrate() {
     notifications: read<NotificationItem[]>(KEYS.notifications, demoNotifications),
     user: read<AppUser | null>(KEYS.user, null),
     addresses: read<SavedAddress[]>(KEYS.addresses, []),
-    reviews: read<Review[]>(KEYS.reviews, []),
+    reviews: read<Review[]>(KEYS.reviews, demoReviews),
     recent: read<ProductEntry[]>(KEYS.recent, []),
     watched: read<ProductEntry[]>(KEYS.watched, []),
     seller: read<MySeller | null>(KEYS.seller, null),
@@ -177,6 +191,8 @@ function hydrate() {
     theme: read<"dark" | "light">(KEYS.theme, "dark"),
     analytics: read<AnalyticsEvent[]>(KEYS.analytics, []),
     serviceRequests: read<ServiceRequest[]>(KEYS.serviceRequests, []),
+    claimedVouchers: read<string[]>(KEYS.claimedVouchers, demoClaimedVouchers),
+    sellerChats: read<Record<string, SellerChatMessage[]>>(KEYS.sellerChats, {}),
   });
 }
 
@@ -254,7 +270,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     write(KEYS.theme, data.theme);
     write(KEYS.analytics, data.analytics);
     write(KEYS.serviceRequests, data.serviceRequests);
-  }, [data.ready, data.cart, data.wishlist, data.compare, data.orders, data.notifications, data.user, data.addresses, data.reviews, data.recent, data.watched, data.seller, data.sellerProducts, data.theme, data.analytics, data.serviceRequests]);
+    write(KEYS.claimedVouchers, data.claimedVouchers);
+    write(KEYS.sellerChats, data.sellerChats);
+  }, [data.ready, data.cart, data.wishlist, data.compare, data.orders, data.notifications, data.user, data.addresses, data.reviews, data.recent, data.watched, data.seller, data.sellerProducts, data.theme, data.analytics, data.serviceRequests, data.claimedVouchers, data.sellerChats]);
 
   const dismissToast = useCallback((id: string) => {
     setStore((prev) => ({ ...prev, toasts: prev.toasts.filter((t) => t.id !== id) }));
@@ -353,13 +371,16 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     updateOrderStatus: (id, status) => {
       const previous = snapshot.orders.find((item) => item.id === id);
       const paidNow = status === "diproses" && previous?.status === "menunggu_pembayaran";
+      const shippedNow = status === "dikirim" && previous?.status === "diproses";
+      const completedNow = status === "selesai" && previous?.status === "dikirim";
       setStore((prev) => ({
         ...prev,
         orders: prev.orders.map((order) => order.id === id
           ? {
               ...order,
               status,
-              ...(paidNow && !order.resi ? { resi: makeResi(), paidAt: new Date().toISOString() } : {}),
+              ...(paidNow && !order.resi ? { resi: makeResi(), courier: "CGI Reguler", paidAt: new Date().toISOString() } : {}),
+              ...(shippedNow && !order.courier ? { courier: "CGI Reguler" } : {}),
             }
           : order),
       }));
@@ -369,6 +390,22 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           setStore,
           "Pembayaran dikonfirmasi",
           `Pesanan ${previous.number} sedang diproses. Nomor resi tersedia di detail pesanan.`,
+          `/orders/${previous.id}`,
+        );
+      }
+      if (shippedNow && previous) {
+        notifySafe(
+          setStore,
+          "Pesanan dikirim",
+          `Pesanan ${previous.number} sedang dalam pengiriman. Lacak statusnya kapan saja.`,
+          `/orders/${previous.id}`,
+        );
+      }
+      if (completedNow && previous) {
+        notifySafe(
+          setStore,
+          "Pesanan selesai",
+          `Pesanan ${previous.number} diterima. Terima kasih sudah berbelanja di CGI Sports.`,
           `/orders/${previous.id}`,
         );
       }
@@ -467,6 +504,33 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       notifySafe(setStore, "Pengajuan layanan diterima", `${service.name} dengan nomor ${request.number} akan segera diproses.`, "/account");
       return request;
     },
+    claimVoucher: (code) => {
+      const normalized = code.trim().toUpperCase();
+      setStore((prev) => prev.claimedVouchers.includes(normalized)
+        ? prev
+        : { ...prev, claimedVouchers: [...prev.claimedVouchers, normalized] });
+      toast("Voucher berhasil diklaim dan siap dipakai.");
+    },
+    sendSellerChat: (context, text) => {
+      const key = sellerChatKey(context);
+      const trimmed = text.trim();
+      if (!trimmed) return;
+      const at = new Date().toISOString();
+      const buyerMessage: SellerChatMessage = { id: createId("msg"), key, sellerName: context.sellerName, role: "buyer", text: trimmed, at };
+      const sellerMessage: SellerChatMessage = { id: createId("msg"), key, sellerName: context.sellerName, role: "seller", text: sellerChatReply(context, trimmed), at };
+      setStore((prev) => ({
+        ...prev,
+        sellerChats: {
+          ...prev.sellerChats,
+          [key]: [...(prev.sellerChats[key] ?? []), buyerMessage, sellerMessage].slice(-60),
+        },
+      }));
+    },
+    clearSellerChat: (key) => setStore((prev) => {
+      const chats = { ...prev.sellerChats };
+      delete chats[key];
+      return { ...prev, sellerChats: chats };
+    }),
   };
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

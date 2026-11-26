@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui";
 import { Icon } from "@/components/ui/Icon";
 import { clamp, formatRupiah } from "@/lib/format";
+import { openSellerChat } from "@/lib/seller-chat";
 import { useStore } from "@/lib/store/StoreProvider";
 import type { Product } from "@/lib/types";
 
@@ -29,6 +30,13 @@ export default function ProductActions({ product }: { product: Product }) {
     toggleWatch(product);
     toast(isWatched ? "Pemantauan harga dihapus." : "Harga produk akan dipantau.", "info");
   };
+
+  const chatSeller = () => openSellerChat({
+    sellerId: product.sellerId,
+    sellerSlug: product.sellerSlug,
+    sellerName: product.sellerName,
+    product: { id: product.id, slug: product.slug, name: product.name, price: product.price, image: product.image },
+  });
 
   return (
     <div className="surface-card rounded-3xl p-5">
@@ -66,6 +74,10 @@ export default function ProductActions({ product }: { product: Product }) {
           Beli Sekarang
         </Button>
       </div>
+
+      <Button variant="outline" icon="chat" full className="mt-3" onClick={chatSeller}>
+        Chat Penjual
+      </Button>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
         <button

@@ -275,7 +275,7 @@ function orderReply(message: string, orders: ChatOrder[]): ChatReply {
   const list = (matched.length > 0 ? matched : orders).slice(0, 3);
   if (list.length === 0) {
     return {
-      reply: "Belum ada pesanan di browser ini. Buka /lacak dan masukkan nomor pesanan atau resi untuk melihat statusnya. Kamu juga bisa melihat pesanan demo di halaman Pesanan.",
+      reply: "Belum ada pesanan di browser ini. Buka /lacak dan masukkan nomor pesanan atau resi untuk melihat statusnya. Kamu juga bisa melihat pesanan di halaman Pesanan.",
     };
   }
   const lines = list.map((order) => {

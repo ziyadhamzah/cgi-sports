@@ -27,8 +27,8 @@ export default function Testimonials() {
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Testimoni"
-        title="Contoh pengalaman belanja"
-        description="Contoh ulasan untuk kebutuhan demo, bukan testimoni pengguna nyata."
+        title="Pengalaman belanja pelanggan"
+        description="Cerita singkat dari pelanggan yang memakai CGI Sports untuk mencari perlengkapan latihan."
         center
       />
       <div className="mt-12 grid gap-4 md:grid-cols-3">

@@ -13,9 +13,11 @@ type NavLink = { href: string; label: string };
 const navLinks: NavLink[] = [
   { href: "/", label: "Beranda" },
   { href: "/products", label: "Produk" },
+  { href: "/promos", label: "Promo" },
   { href: "/sellers", label: "Penjual" },
   { href: "/services", label: "Layanan" },
   { href: "/bandingkan", label: "Bandingkan" },
+  { href: "/orders", label: "Pesanan" },
   { href: "/lacak", label: "Lacak" },
   { href: "/seller/dashboard", label: "Buka Toko" },
 ];
@@ -94,11 +96,8 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--background)] backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex shrink-0 items-center" aria-label="CGI Sports beranda">
-          <Image src="/logo.webp" alt="CGI Sports" width={1536} height={1024} loading="eager" className="h-9 w-auto object-contain" />
+          <Image src="/logo.webp" alt="CGI Sports" width={1536} height={1024} loading="eager" className="h-12 w-auto object-contain" />
         </Link>
-        <span className="hidden shrink-0 rounded-full border border-[var(--line)] px-2 py-1 text-[10px] font-medium text-[var(--muted)] lg:inline-flex">
-          Mode demo
-        </span>
 
         <nav className="ml-4 hidden items-center gap-0.5 lg:flex" aria-label="Navigasi utama">
           {navLinks.map((link) => {

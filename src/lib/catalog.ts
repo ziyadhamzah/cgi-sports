@@ -1,4 +1,5 @@
 import { categories, getCategoryName, products, vouchers } from "./mock-data";
+import { formatDate } from "./format";
 import type { AnalyticsEvent, CartItem, Product, ProductFilters, SortOption, Voucher } from "./types";
 
 export function filterProducts(list: Product[], filters: ProductFilters): Product[] {
@@ -65,9 +66,15 @@ export function findVoucher(code: string) {
   return vouchers.find((v) => v.code === code.trim().toUpperCase());
 }
 
-export function validateVoucher(code: string, subtotal: number, items: CartItem[], resolve: (id: string) => Product | undefined): { voucher?: Voucher; error?: string } {
+export function isVoucherExpired(voucher: Voucher, now: number) {
+  return Boolean(voucher.expiresAt && new Date(voucher.expiresAt).getTime() < now);
+}
+
+export function validateVoucher(code: string, subtotal: number, items: CartItem[], resolve: (id: string) => Product | undefined, claimedCodes?: string[]): { voucher?: Voucher; error?: string } {
   const voucher = findVoucher(code);
   if (!voucher) return { error: "Kode voucher tidak ditemukan." };
+  if (isVoucherExpired(voucher, Date.now())) return { error: `Voucher ${voucher.code} sudah kedaluwarsa. Berlaku sampai ${formatDate(voucher.expiresAt!)}.` };
+  if (claimedCodes && !claimedCodes.includes(voucher.code)) return { error: "Klaim voucher ini di Pusat Promo sebelum dipakai." };
   const eligibleSubtotal = voucher.categorySlug
     ? items.reduce((sum, item) => {
         const product = resolve(item.productId);

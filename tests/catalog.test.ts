@@ -36,4 +36,12 @@ describe("catalog", () => {
     expect(validation.voucher).toBeUndefined();
     expect(validation.error).toContain("Minimal belanja");
   });
+
+  it("menolak voucher yang belum diklaim", () => {
+    const items = [{ productId: "p1", quantity: 1 }];
+    const validation = validateVoucher("CGI10", 899000, items, resolve, []);
+
+    expect(validation.voucher).toBeUndefined();
+    expect(validation.error).toContain("Klaim voucher");
+  });
 });

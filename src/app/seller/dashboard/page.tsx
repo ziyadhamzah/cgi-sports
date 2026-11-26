@@ -69,15 +69,26 @@ export default function SellerDashboardPage() {
         </div>
       </div>
 
-      <div className="mt-6 max-w-sm">
-        <ImageUpload
-          label="Foto toko"
-          value={seller.photo ?? ""}
-          onChange={updateSellerPhoto}
-          hint="Tampil di kartu toko dan halaman toko. Maksimal 2 MB."
-          square
-        />
-      </div>
+      <section className="surface-card mt-10 max-w-xl rounded-3xl p-6">
+        <div className="flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent)]/10 text-[var(--accent)]">
+            <Icon name="store" size={19} />
+          </span>
+          <div>
+            <h2 className="text-sm font-semibold text-white">Foto profil toko</h2>
+            <p className="mt-1 text-xs text-zinc-400">Foto ini tampil di kartu toko dan halaman toko.</p>
+          </div>
+        </div>
+        <div className="mt-5">
+          <ImageUpload
+            label="Foto profil toko"
+            value={seller.photo ?? ""}
+            onChange={updateSellerPhoto}
+            hint="Gunakan gambar kotak agar tampil rapi. Maksimal 2 MB."
+            square
+          />
+        </div>
+      </section>
 
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         {stats.map((stat) => (

@@ -14,7 +14,7 @@ const quickLinks: { href: string; label: string; description: string; icon: Icon
   { href: "/orders", label: "Pesanan", description: "Cek status dan riwayat pesanan", icon: "box" },
   { href: "/wishlist", label: "Wishlist", description: "Produk favorit yang kamu simpan", icon: "heart" },
   { href: "/account#alamat", label: "Alamat", description: "Kelola alamat pengiriman", icon: "location" },
-  { href: "/admin/analytics", label: "Analitik (demo admin)", description: "Lihat statistik kunjungan toko", icon: "chart" },
+  { href: "/admin/analytics", label: "Analitik toko", description: "Lihat statistik kunjungan toko", icon: "chart" },
   { href: "/seller/dashboard", label: "Buka Toko", description: "Kelola toko dan produk kamu", icon: "store" },
 ];
 

@@ -1,19 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge, Button } from "@/components/ui";
 import { Icon } from "@/components/ui/Icon";
-import { discountLabel } from "@/lib/catalog";
+import { discountLabel, isVoucherExpired } from "@/lib/catalog";
 import { formatRupiah } from "@/lib/format";
 import { vouchers } from "@/lib/mock-data";
 
 type VoucherPromoProps = {
   onApply: (code: string) => void;
   appliedCode: string;
+  claimedCodes?: string[];
 };
 
-export default function VoucherPromo({ onApply, appliedCode }: VoucherPromoProps) {
+export default function VoucherPromo({ onApply, appliedCode, claimedCodes }: VoucherPromoProps) {
   const [copiedCode, setCopiedCode] = useState("");
+  const [now, setNow] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setNow(Date.now()), 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const copyCode = async (code: string) => {
     try {
@@ -29,6 +36,8 @@ export default function VoucherPromo({ onApply, appliedCode }: VoucherPromoProps
     <div className="mt-4 grid gap-3 sm:grid-cols-2">
       {vouchers.map((voucher) => {
         const applied = voucher.code === appliedCode;
+        const claimed = !claimedCodes || claimedCodes.includes(voucher.code);
+        const expired = now > 0 && isVoucherExpired(voucher, now);
         return (
           <div
             key={voucher.code}
@@ -39,14 +48,22 @@ export default function VoucherPromo({ onApply, appliedCode }: VoucherPromoProps
                 <Icon name="ticket" size={18} />
                 <span className="font-semibold">{voucher.label}</span>
               </div>
-              <Badge tone={applied ? "success" : "neutral"}>{applied ? "Dipakai" : discountLabel(voucher)}</Badge>
+              <Badge tone={expired ? "danger" : applied ? "success" : claimed ? "neutral" : "warning"}>
+                {expired ? "Kedaluwarsa" : applied ? "Dipakai" : claimed ? discountLabel(voucher) : "Belum diklaim"}
+              </Badge>
             </div>
             <p className="mt-2 text-xs leading-5 text-zinc-400">{voucher.description}</p>
             <p className="mt-1 text-[11px] text-zinc-500">Minimal belanja {formatRupiah(voucher.minSpend)}</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <Button size="sm" variant={applied ? "secondary" : "primary"} onClick={() => onApply(voucher.code)}>
-                {applied ? "Voucher aktif" : "Pakai voucher"}
-              </Button>
+              {expired ? (
+                <Button size="sm" variant="secondary" disabled>Tidak tersedia</Button>
+              ) : !claimed ? (
+                <Button size="sm" variant="outline" icon="arrow-right" href="/promos">Klaim di Promo</Button>
+              ) : (
+                <Button size="sm" variant={applied ? "secondary" : "primary"} onClick={() => onApply(voucher.code)}>
+                  {applied ? "Voucher aktif" : "Pakai voucher"}
+                </Button>
+              )}
               <Button size="sm" variant="outline" icon={copiedCode === voucher.code ? "check" : "copy"} onClick={() => copyCode(voucher.code)}>
                 {copiedCode === voucher.code ? "Tersalin" : voucher.code}
               </Button>

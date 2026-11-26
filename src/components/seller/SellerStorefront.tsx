@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import ProductGrid from "@/components/products/ProductGrid";
 import { initials } from "@/lib/format";
 import { products } from "@/lib/mock-data";
+import { openSellerChat } from "@/lib/seller-chat";
 import { useStore } from "@/lib/store/StoreProvider";
 import type { MySeller, Seller } from "@/lib/types";
 
@@ -95,7 +96,14 @@ export default function SellerStorefront({ slug, staticSeller }: { slug: string;
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-zinc-400">
             <Rating value={seller.rating} count={seller.reviewCount} size={15} />
             <span className="inline-flex items-center gap-2"><Icon name="location" size={15} /> {seller.address}</span>
-            <span className="inline-flex items-center gap-2"><Icon name="chat" size={15} /> {seller.phone}</span>
+            <button
+              type="button"
+              onClick={() => openSellerChat({ sellerId: seller.id, sellerSlug: seller.slug, sellerName: seller.name })}
+              className="inline-flex items-center gap-2 text-[var(--accent)] transition hover:underline"
+            >
+              <Icon name="chat" size={15} /> Chat penjual
+            </button>
+            <span className="inline-flex items-center gap-2"><Icon name="info" size={15} /> {seller.phone}</span>
           </div>
         </div>
       </section>

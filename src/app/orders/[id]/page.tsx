@@ -44,11 +44,17 @@ function OrderDetailContent() {
 
   const method = paymentMethods.find((item) => item.key === order.paymentMethod);
   const unpaid = order.status === "menunggu_pembayaran";
+  const canShip = order.status === "diproses";
   const canComplete = order.status === "dikirim";
 
   const cancelOrder = () => {
     updateOrderStatus(order.id, "dibatalkan");
     toast("Pesanan dibatalkan.");
+  };
+
+  const shipOrder = () => {
+    updateOrderStatus(order.id, "dikirim");
+    toast("Pesanan ditandai sedang dikirim.");
   };
 
   const completeOrder = () => {
@@ -69,7 +75,7 @@ function OrderDetailContent() {
             <div>
               <h2 className="text-lg font-semibold text-white">Item Pesanan</h2>
               <p className="mt-1 text-xs text-zinc-500">
-                {order.resi ? `Resi: ${order.resi}` : "Resi dibuat setelah pembayaran dikonfirmasi"}
+                  {order.resi ? `Resi: ${order.resi}${order.courier ? ` · ${order.courier}` : ""}` : "Resi dibuat setelah pembayaran dikonfirmasi"}
               </p>
             </div>
             <OrderStatusBadge status={order.status} />
@@ -99,7 +105,7 @@ function OrderDetailContent() {
             {order.discount > 0 && <div className="flex justify-between text-emerald-300"><span>Diskon {order.voucherCode ?? ""}</span><span>-{formatRupiah(order.discount)}</span></div>}
             <div className="flex items-end justify-between border-t border-white/10 pt-4"><span className="text-zinc-300">Total</span><span className="text-xl font-semibold text-[var(--accent)]">{formatRupiah(order.total)}</span></div>
           </div>
-          {(unpaid || canComplete) && (
+          {(unpaid || canShip || canComplete) && (
             <div className="mt-6 flex flex-wrap gap-3">
               {unpaid && (
                 <button
@@ -110,6 +116,7 @@ function OrderDetailContent() {
                   Batalkan Pesanan
                 </button>
               )}
+              {canShip && <Button icon="truck" onClick={shipOrder}>Tandai Dikirim</Button>}
               {canComplete && <Button icon="check" onClick={completeOrder}>Tandai Selesai</Button>}
             </div>
           )}
